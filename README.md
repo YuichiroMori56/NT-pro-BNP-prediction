@@ -6,7 +6,7 @@ This repository contains R code for the main analysis of the following submitted
 
 For contact information, please refer to the corresponding author details provided in the paper.
 
-The original data of NHANES 1999-2004 cycles can be obtained from the following website:
+The original data of NHANES 1999-2004 cycles to replicate the analysis can be obtained from the following website:
 https://wwwn.cdc.gov/nchs/nhanes/Default.aspx
 
 # Disclaimer
