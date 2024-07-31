@@ -566,3 +566,31 @@ analysis(impDF, drop.SES = FALSE, use.sob = TRUE, thsld.obs.plv = FALSE)
 
 #minimum
 analysis(impDF, minimum = TRUE)
+
+# SHAP --------------------------------------------------------------------
+shp <- shapviz(fit_xgbTree$finalModel, X_pred = data.matrix(newd %>% dplyr::select(-c(sddsrvyr, outcome))), X = newd %>% dplyr::select(-c(sddsrvyr, outcome)))
+
+sv_importance(shp,  max_display = 15) + theme_classic()
+
+beeswarm <- sv_importance(shp, kind = "beeswarm",
+              max_display = 23)+
+  theme_classic()
+
+beeswarm
+
+beeswarm.short <- sv_importance(shp, kind = "beeswarm",
+              max_display = 6)+
+  theme_classic()
+  
+ggsave(plot = beeswarm.short, filename = "E:/NHANES/beeswarm_short.png", device = "png",
+       width = 10, height = 12)
+
+ggsave(plot = beeswarm, filename = "E:/NHANES/beeswarm.png", device = "png",
+       width = 10, height = 20)
+  
+shap_dependence <- sv_dependence(shp, v = c("Age", "Alb", "Hb", "Female", "SBP", "eGFR"), color_var = "Age") &
+  theme_gray(base_size = 9) &
+  ylim(-1.7, 2.6) 
+
+ggsave(plot = shap_dependence, filename = "E:/NHANES/shap_dependence.png", device = "png",
+                             width = 10, height = 10)
